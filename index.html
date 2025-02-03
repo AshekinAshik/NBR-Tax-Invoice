@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBR - Tax Invoice</title>
+
+    <link rel="icon" type="image/png" href="./govt-bd.png">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="./govt-bd.png" alt="Government Logo">
+        </div>
+        <div class="title">
+            <p style="font-size: 1.2rem; font-weight: 500; color: blue;">Government of Peoples' Republic of Bangladesh</p>
+            <p style="font-size: 1.2rem; font-weight: 800; color: blue;">National Board of Revenue, Dhaka</p>
+            <p style="font-size: 1.2rem; font-weight: 800; color: purple;">Tax Invoice</p>
+            <p style="font-size: 1.2rem; font-weight: 500; color: blue;">[As per Para (Ga) and Para (Cha) of Sub-rule 1 of Rule 40]</p>
+        </div>
+        <div class="mushak">*Mushak - 6.3</div>
+    </header>
+
+    <section class="user-info">
+        <div class="column">
+            <label for="purchaser-name">Name of Purchaser</label>
+            <input type="text" id="purchaser-name" placeholder="Enter Name">
+
+            <label for="purchaser-bin">Purchaser's BIN</label>
+            <input type="text" id="purchaser-bin" placeholder="Enter BIN">
+
+            <label for="purchaser-address">Address of Purchaser</label>
+            <input type="text" id="purchaser-address" placeholder="Enter Address">
+
+            <label for="destination-address">Address of Destination</label>
+            <input type="text" id="destination-address" placeholder="Enter Address">
+
+            <label for="vehicle-info">Nature and Number of Vehicle</label>
+            <input type="text" id="vehicle-info" placeholder="Enter Vehicle Info">
+        </div>
+
+        <div class="column hardcoded">
+            <p style="margin-bottom: 10px;"><strong>Name of Registered:</strong> Dipon Infrastructure Services Limited </p>
+            <p style="margin-bottom: 10px;"><strong>BIN of Registered:</strong> 000812312-0101</p>
+
+            <label for="challan-issuer-address">Address of Challan Issuer</label>
+            <input type="text" id="challan-issuer-address" placeholder="Enter Address">
+
+            <p style="margin-bottom: 10px;"><strong>Mushak Invoice No:</strong> <span id="invoice-no">1</span></p>
+            <p style="margin-bottom: 10px;"><strong>Date of Issue:</strong> <span id="date-issue"></span></p>
+            <label for="time-issue"><strong>Time of Issue:</strong></label>
+            <input type="text" id="time-issue" placeholder="Enter Time">
+        </div>
+    </section>
+
+    <div class="invoice-table-container">
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>SL No.</th>
+                    <th>Description of Goods / Services</th>
+                    <th>Unit of Supply</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Value</th>
+                    <th>Rate of Supplementary Duty</th>
+                    <th>Supplementary Duty</th>
+                    <th>VAT Rate</th>
+                    <th>VAT</th>
+                    <th>Value including SP and VAT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be inserted dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <button class="add-btn" onclick="addRow()">Add Goods/Service</button>
+
+    <div class="divider-line"></div>
+
+    <section class="authorized-person">
+        <div class="column">
+            <label for="authorized-name">Name of Authorized Person</label>
+            <input type="text" id="authorized-name" placeholder="Enter Name">
+
+            <label for="designation">Designation</label>
+            <input type="text" id="designation" placeholder="Enter Designation">
+
+            <label for="signature">Signature</label>
+            <input type="text" id="signature" placeholder="Enter Signature">
+
+            <label for="seal">Seal</label>
+            <input type="text" id="seal" placeholder="Enter Seal">
+        </div>
+
+        <div class="notice">
+            <p><em>* Value exclusive of all taxes i.e. SD and VAT</em></p>
+        </div>
+    </section>
+
+    <section class="payment-options">
+        <div class="button-container">
+            <button class="cash-btn">Cash Payment</button>
+            <button class="online-btn">Online Payment</button>
+        </div>
+    </section>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
