@@ -20,7 +20,7 @@ body {
 }
 
 .header img {
-  height: 130px;
+  height: 100px;
 }
 
 .header .title {
@@ -33,6 +33,11 @@ body {
 .header .title h3,
 .header .title h4 {
   margin: 5px 0;
+}
+
+.header .title p {
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .header .mushak {
