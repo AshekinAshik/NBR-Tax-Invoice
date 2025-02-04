@@ -8,6 +8,19 @@
 
     <link rel="icon" type="image/png" href="./govt-bd.png">
     <link rel="stylesheet" href="./style.css">
+
+    <style>
+        /* VAT Column and Total VAT Cell Highlight */
+        .invoice-table th:nth-child(10),
+        .invoice-table td:nth-child(10),
+        .invoice-table tfoot td:nth-child(10),
+        .invoice-table tfoot td:nth-last-child(2) {
+            /* Total VAT in Footer */
+            background-color: #ffeb3b;
+            color: #000000;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -111,7 +124,7 @@
                     <th>Rate of Supplementary Duty</th>
                     <th>Supplementary Duty</th>
                     <th>VAT Rate</th>
-                    <th>VAT</th>
+                    <th>Receivable VAT</th>
                     <th>Value including SP and VAT</th>
                 </tr>
             </thead>
