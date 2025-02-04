@@ -4,6 +4,8 @@ body {
   padding: 0;
 }
 
+/* HEADER PART */
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -49,6 +51,8 @@ body {
   color: green;
 }
 
+/* USER INFO */
+
 .user-info {
   display: flex;
   justify-content: space-between;
@@ -81,6 +85,8 @@ body {
   margin: 5px 0;
 }
 
+/* INVOICE TABLE */
+
 .invoice-table-container {
   width: 100%;
   overflow-x: auto;
@@ -99,7 +105,6 @@ body {
   padding: 10px;
   text-align: center;
   white-space: nowrap;
-  /* Prevents text from wrapping, forcing horizontal scrolling */
 }
 
 .invoice-table th {
@@ -117,11 +122,21 @@ body {
   cursor: pointer;
 }
 
+.remove-row {
+  background-color: red;
+  color: white;
+  border: red;
+}
+
+/* DIVINER LINE */
+
 .divider-line {
   display: flex;
   border-bottom: 1px solid #838383b6;
   margin: 10px 20px 20px 20px;
 }
+
+/* AUTHORIZED PERSON DETAILS */
 
 .authorized-person {
   margin-top: 20px;
@@ -151,6 +166,8 @@ body {
   display: inline-block;
 }
 
+/* NOTICE */
+
 .notice {
   margin-top: 10px;
   margin-left: 20px;
@@ -162,6 +179,8 @@ body {
   color: #888;
 }
 
+/* PAYMENT BUTTONS */
+
 .payment-options {
   margin-top: 20px;
   padding: 0 20px;
@@ -170,14 +189,12 @@ body {
 .button-container {
   display: flex;
   justify-content: flex-end;
-  /* Align buttons to the right */
   gap: 10px;
 }
 
 .button-container button {
   padding: 12px 20px;
   margin-bottom: 10px;
-  /* Adjust padding for normal-sized buttons */
   font-size: 16px;
   border: none;
   border-radius: 5px;
@@ -187,24 +204,16 @@ body {
 
 .cash-btn {
   background-color: #28a745;
-  /* Green */
   color: white;
 }
 
 .online-btn {
   background-color: #007bff;
-  /* Blue */
   color: white;
 }
 
 .button-container button:hover {
   opacity: 0.8;
-}
-
-.remove-row {
-  background-color: red;
-  color: white;
-  border: red;
 }
 
 @media (max-width: 768px) {
