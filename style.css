@@ -80,7 +80,8 @@ body {
 .form-group span {
   min-width: 10px;
   text-align: center;
-  margin-right: 20px; /* Ensures spacing between colon and input */
+  margin-right: 20px;
+  /* Ensures spacing between colon and input */
   font-weight: bold;
 }
 
@@ -121,14 +122,18 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin: 0 auto;
+  table-layout: auto;
 }
 
 .invoice-table th,
 .invoice-table td {
   border: 1px solid #000;
-  padding: 10px;
+  padding: 8px;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  /* Allow text to wrap */
+  word-wrap: break-word;
+  /* Break long words into multiple lines */
 }
 
 .invoice-table th {
@@ -271,6 +276,14 @@ body {
     display: block;
   }
 
+  .invoice-table th,
+  .invoice-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: center;
+    white-space: nowrap;  
+  }
+
   .authorized-person {
     flex-direction: column;
     padding-left: 10px;
@@ -312,6 +325,7 @@ body {
 }
 
 @media screen and (max-width: 1366px) {
+
   .invoice-table th,
   .invoice-table td {
     padding: 6px;
@@ -320,6 +334,7 @@ body {
 }
 
 @media screen and (max-width: 1024px) {
+
   .invoice-table th,
   .invoice-table td {
     padding: 5px;
