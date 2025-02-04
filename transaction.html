@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 350px;
+        }
+
+        .form-container h2 {
+            margin: 0 0 20px;
+        }
+
+        .form-container label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background: #0056b3;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Payment Details</h2>
+        <form id="transaction-form">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" required placeholder="Amount (e.g. 100)">
+            <!-- <label for="note">Note</label> -->
+            <!-- <input type="text" id="note"  placeholder="Note (e.g. Testing open API)"> -->
+            <button type="submit">Submit Payment</button>
+        </form>
+        <div id="error-message" class="error"></div>
+        <div id="success-message" class="error"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    </div>
+    <script>
+        // new code for signature
+        function createCheckSum(payload) {
+            let checkSumString = '';
+            let stringPayload;
+
+            try {
+                stringPayload = JSON.stringify(payload)
+                // console.log("stringPayload", stringPayload)
+                checkSumString = stringPayload.replace(/[{}\[\]=\s,"":]/g, "")
+
+                console.log("\n checkSumString", checkSumString)
+                return checkSumString;
+            } catch (e) {
+                console.error(e?.stack);
+                return;
+            }
+        }
+
+        function encryptPayload(body, SECRET_KEY) {
+            const key = CryptoJS.enc.Utf8.parse(SECRET_KEY); // Assuming password is 16 bytes or less
+            // Ensure key is 16 bytes (similar to Java's `Arrays.copyOf(secretKey.getBytes("UTF-8"), 16);`)
+            const key16 = key.clone(); // Ensure we are not modifying the original key object
+            key16.words = key16.words.slice(0, 4);  // slice the array to ensure it is exactly 16 bytes long
+            // Encrypt the data using AES in ECB mode with PKCS7 padding
+            const encrypted = CryptoJS.AES.encrypt(body, key16, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7  // Ensure the padding is PKCS7, like Java default
+            });
+            // Convert the result (CipherParams) to Base64 and return
+            return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+        }
+
+        function sanitizeString(input) {
+            input = JSON.stringify(input);
+            console.log("Original String:", input);
+            // Use a regular expression to remove unwanted characters
+            const sanitizedString = input.replace(/[{\"}:, ]/g, '');
+            console.log("Sanitized String:", sanitizedString);
+            return sanitizedString;
+        }
+
+
+        function formatParams(params) {
+            let formatted = "";
+            const sortedKeys = Object.keys(params).sort(); // Sort the keys alphabetically
+            for (const key of sortedKeys) {
+                const value = params[key];
+                if (typeof value === 'object' && value !== null) {
+                    formatted += key + formatParams(value); // Handle nested objects with sorted keys
+                } else {
+                    formatted += key + value;
+                }
+            }
+            return formatted;
+        }
+
+        function generateUDID() {
+            // Generate a random unique identifier
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = (Math.random() * 16) | 0; // Generate a random number
+                const v = c === 'x' ? r : (r & 0x3) | 0x8; // Apply RFC 4122 rules for UUID
+                return v.toString(16); // Convert to hexadecimal
+            });
+        }
+
+        document.getElementById('transaction-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Get values from form
+            //const amount = document.getElementById('amount').value;
+            const amount = parseFloat(document.getElementById('amount').value); // Convert to number
+
+            // const note = document.getElementById('note').value;
+            const accessToken = sessionStorage.getItem('access_token');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            errorMessage.textContent = '';
+            successMessage.textContent = '';
+
+            // Check if access token exists
+            if (!accessToken) {
+                errorMessage.textContent = 'Authentication failed. Please log in again.';
+                return;
+            }
+
+            // Prepare transaction data
+            const params = {
+                // amount: amount + .21,
+                amount: amount + .01,
+                customer_token: null,
+                note: "Purchasing Test E Ticket",
+                payee_information: {
+                    dial_code: '+88',
+                    phone_number: '01711111111'
+                },
+                payment_method: null,
+                redirect_url: 'https://www.google.com/',
+                unique_txn_id: generateUDID()
+                //unique_txn_id: 'XYZ_002'
+            };
+
+            // Format the parameters into a single string and sanitize
+            const formattedParams = sanitizeString(formatParams(params));
+
+
+            // Generate HMAC Signature
+            const apiKey = "b4ecb09a87bd4c38bec5e35337e5e2d0";
+
+            // New Code for signature
+            requestPayload = Object.keys(params).sort().reduce(function (result, key) {
+                result[key] = params[key];
+                return result;
+            }, {});
+            let payloadStr = this.createCheckSum(requestPayload);
+            const hmac = CryptoJS.HmacSHA256(payloadStr, apiKey);
+            const signature = CryptoJS.enc.Base64.stringify(hmac);
+            //End
+
+            // Encrypt payload
+            const secretKey = "876e2b94b18e2219";
+            const jsonString = JSON.stringify(params);
+            var encryptedPayload = await encryptPayload(jsonString, secretKey);
+
+            // Send the request to initiate payment
+            try {
+                const response = await fetch('https://api-UAT.dgepay.net/dipon/v3/payment_gateway/initiate_payment', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                        'signature': signature
+                    },
+                    body: encryptedPayload
+                });
+
+                // const data = await response.json();
+                // successMessage.textContent = response.text()
+
+                const data = await response.text();
+                if (response.ok) {
+                    // Get the XML string from the response
+                    // const xmlString = await response.text();
+
+                    // // Parse the XML string into a DOM object
+                    // const parser = new DOMParser();
+                    // const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+
+                    // // Extract values from the XML
+                    // const status_code = xmlDoc.getElementsByTagName("status_code")[0].textContent;
+                    // const webview_url = xmlDoc.getElementsByTagName("webview_url")[0].textContent;
+                    // const unique_txn_id = xmlDoc.getElementsByTagName("unique_txn_id")[0].textContent;
+
+                    // // Create a JSON object
+                    // const jsonResponse = {
+                    //     status_code: status_code,
+                    //     data: {
+                    //         webview_url: webview_url,
+                    //         unique_txn_id: unique_txn_id
+                    //     }
+                    // };
+
+                    // Log the resulting JSON object
+                    const parseData = JSON.parse(data)
+                    console.log(parseData);
+                    successMessage.textContent = parseData.data.webview_url;
+
+                } else {
+                    throw new Error('Failed to initiate payment');
+                }
+            } catch (error) {
+                errorMessage.textContent = error.message;
+            }
+        });
+    </script>
+</body>
+
+</html>

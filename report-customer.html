@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report - Customer</title>
+
+    <link rel="icon" type="image/png" href="./govt-bd.png">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="./govt-bd.png" alt="Government Logo">
+        </div>
+        <div class="title">
+            <p style="font-size: 1.2rem; font-weight: 500; color: blue;">Government of Peoples' Republic of Bangladesh
+            </p>
+            <p style="font-size: 1.2rem; font-weight: 800; color: blue;">National Board of Revenue, Dhaka</p>
+            <p style="font-size: 1.3rem; font-weight: 800; color: purple; margin-top: 10px;">Report for Customer</p>
+            <p style="font-size: 0.85rem; font-weight: 500; color: blue;">[As per Para (Ga) and Para (Cha) of Sub-rule 1
+                of Rule 40]</p>
+        </div>
+        <div class="mushak">*Mushak - 6.3</div>
+    </header>
+
+    <section class="user-info">
+        <div class="column">
+            <div class="form-group">
+                <label for="purchaser-name">Name of Purchaser</label>
+                <span>:</span>
+                <input type="text" id="purchaser-name" value="Purchaser's Name" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="purchaser-bin">Purchaser's BIN</label>
+                <span>:</span>
+                <input type="text" id="purchaser-bin" value="Purchaser's BIN" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="purchaser-address">Address of Purchaser</label>
+                <span>:</span>
+                <input type="text" id="purchaser-address" value="Purchaser's Address" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="destination-address">Address of Destination</label>
+                <span>:</span>
+                <input type="text" id="destination-address" value="Destination Address" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="vehicle-info">Nature and Number of Vehicle</label>
+                <span>:</span>
+                <input type="text" id="vehicle-info" value="Vehicle's Nature and Number Info" readonly>
+            </div>
+        </div>
+    </section>
+
+    <div class="invoice-table-container">
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>SL No.</th>
+                    <th>Description of Goods / Services</th>
+                    <th>Unit of Supply</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Value</th>
+                    <th>Rate of Supplementary Duty</th>
+                    <th>Supplementary Duty</th>
+                    <th>VAT Rate</th>
+                    <th>VAT</th>
+                    <th>Value including SP and VAT</th>
+                </tr>
+            </thead>
+            <tbody id="report-table-body">
+                <tr>
+                    <td>1</td>
+                    <td>Item 1</td>
+                    <td>Box</td>
+                    <td>5</td>
+                    <td>100</td>
+                    <td>500</td>
+                    <td>10%</td>
+                    <td>50</td>
+                    <td>15%</td>
+                    <td>75</td>
+                    <td>625</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Item 2</td>
+                    <td>Box</td>
+                    <td>3</td>
+                    <td>200</td>
+                    <td>600</td>
+                    <td>10%</td>
+                    <td>60</td>
+                    <td>15%</td>
+                    <td>90</td>
+                    <td>750</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: right;">Total</td>
+                    <td>1100</td> <!-- Sum of Total Value -->
+                    <td></td>
+                    <td>110</td> <!-- Sum of Supplementary Duty -->
+                    <td></td>
+                    <td>165</td> <!-- Sum of VAT -->
+                    <td>1375</td> <!-- Sum of Value including SP and VAT -->
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="summary">
+        <p><strong>Payment Amount:</strong> <span id="payment-amount">0</span></p>
+        <p><strong>Payment Channel:</strong> <span id="payment-channel">Cash</span></p>
+    </div>
+</body>
+
+</html>

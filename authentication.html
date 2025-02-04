@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authenticate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+        .form-container h2 {
+            margin: 0 0 20px;
+        }
+        .form-container label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Authenticate</h2>
+        <form id="auth-form">
+            <label for="client-id">Client ID</label>
+            <input type="text" value="1103472d3be149ecb0b62020059e7fd8" id="client-id" required>
+            <label for="client-secret">Client Secret</label>
+            <input type="text" value="876e2b94b18e2219" id="client-secret" required>
+            <button type="submit">Authenticate</button>
+        </form>
+        <div id="error-message" class="error"></div>
+    </div>
+    <script>
+        document.getElementById('auth-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const clientId = document.getElementById('client-id').value;
+            const clientSecret = document.getElementById('client-secret').value;
+
+            const authHeader = btoa(`${clientId}:${clientSecret}`);
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = '';
+
+            try {
+                const response = await fetch('https://api-UAT.dgepay.net/dipon/v3/payment_gateway/authenticate', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Basic ${authHeader}`
+                    }
+                });
+
+                const data = await response.text();  // Get the response as text (XML format)
+                
+                if (response.ok) {
+                    // Parse the XML response
+                    // const parser = new DOMParser();
+                    // const xmlDoc = parser.parseFromString(data, 'application/xml');
+                    // const statusCode = xmlDoc.getElementsByTagName('status_code')[0].textContent;
+                    const parseData = JSON.parse(data)
+                    console.log("res", parseData)
+                    // const data = response.data
+                    if (parseData?.status_code === 200) {
+                        // const accessToken = xmlDoc.getElementsByTagName('access_token')[0].textContent;
+                        // Save access token to sessionStorage
+                        const accessToken = parseData?.data?.access_token;
+                        sessionStorage.setItem('access_token', accessToken);
+                        // Redirect to transaction page
+                        window.location.href = 'transaction.html';
+                    } else {
+                        throw new Error('Authentication failed');
+                    }
+                } else {
+                    throw new Error('Request failed');
+                }
+            } catch (error) {
+                errorMessage.textContent = error.message;
+            }
+        });
+    </script>
+</body>
+</html>

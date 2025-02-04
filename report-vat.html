@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBR - Tax Invoice</title>
+    <title>Report - VAT</title>
 
     <link rel="icon" type="image/png" href="./govt-bd.png">
     <link rel="stylesheet" href="./style.css">
@@ -19,7 +19,7 @@
             <p style="font-size: 1.2rem; font-weight: 500; color: blue;">Government of Peoples' Republic of Bangladesh
             </p>
             <p style="font-size: 1.2rem; font-weight: 800; color: blue;">National Board of Revenue, Dhaka</p>
-            <p style="font-size: 1.2rem; font-weight: 800; color: purple; margin-top: 10px;">Tax Invoice</p>
+            <p style="font-size: 1.3rem; font-weight: 800; color: purple; margin-top: 10px;">Report for VAT Office</p>
             <p style="font-size: 0.85rem; font-weight: 500; color: blue;">[As per Para (Ga) and Para (Cha) of Sub-rule 1
                 of Rule 40]</p>
         </div>
@@ -31,31 +31,31 @@
             <div class="form-group">
                 <label for="purchaser-name">Name of Purchaser</label>
                 <span>:</span>
-                <input type="text" id="purchaser-name" placeholder="Enter Name">
+                <input type="text" id="purchaser-name" value="Purchaser's Name" readonly>
             </div>
 
             <div class="form-group">
                 <label for="purchaser-bin">Purchaser's BIN</label>
                 <span>:</span>
-                <input type="text" id="purchaser-bin" placeholder="Enter BIN">
+                <input type="text" id="purchaser-bin" value="Purchaser's BIN" readonly>
             </div>
 
             <div class="form-group">
                 <label for="purchaser-address">Address of Purchaser</label>
                 <span>:</span>
-                <input type="text" id="purchaser-address" placeholder="Enter Address">
+                <input type="text" id="purchaser-address" value="Purchaser's Address" readonly>
             </div>
 
             <div class="form-group">
                 <label for="destination-address">Address of Destination</label>
                 <span>:</span>
-                <input type="text" id="destination-address" placeholder="Enter Address">
+                <input type="text" id="destination-address" value="Destination Address" readonly>
             </div>
 
             <div class="form-group">
                 <label for="vehicle-info">Nature and Number of Vehicle</label>
                 <span>:</span>
-                <input type="text" id="vehicle-info" placeholder="Enter Vehicle Info">
+                <input type="text" id="vehicle-info" value="Vehicle's Nature and Number Info" readonly>
             </div>
         </div>
 
@@ -75,7 +75,7 @@
             <div class="form-group">
                 <label for="challan-issuer-address">Address of Challan Issuer</label>
                 <span>:</span>
-                <input type="text" id="challan-issuer-address" placeholder="Enter Address">
+                <input type="text" id="challan-issuer-address" value="Challan Issuer's Address" readonly>
             </div>
 
             <div class="form-group">
@@ -115,62 +115,57 @@
                     <th>Value including SP and VAT</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Rows will be inserted dynamically -->
+            <tbody id="report-table-body">
+                <tr>
+                    <td>1</td>
+                    <td>Item 1</td>
+                    <td>Box</td>
+                    <td>5</td>
+                    <td>100</td>
+                    <td>500</td>
+                    <td>10%</td>
+                    <td>50</td>
+                    <td>15%</td>
+                    <td>75</td>
+                    <td>625</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Item 2</td>
+                    <td>Box</td>
+                    <td>3</td>
+                    <td>200</td>
+                    <td>600</td>
+                    <td>10%</td>
+                    <td>60</td>
+                    <td>15%</td>
+                    <td>90</td>
+                    <td>750</td>
+                </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: right;">Total</td>
+                    <td>1100</td> <!-- Sum of Total Value -->
+                    <td></td>
+                    <td>110</td> <!-- Sum of Supplementary Duty -->
+                    <td></td>
+                    <td>165</td> <!-- Sum of VAT -->
+                    <td>1375</td> <!-- Sum of Value including SP and VAT -->
+                </tr>
+            </tfoot>
+
         </table>
     </div>
 
-    <button class="add-btn" onclick="addRow()">Add Goods/Service</button>
-
     <div class="divider-line"></div>
 
-    <section class="authorized-person">
-        <div class="column">
-            <label for="authorized-name">Name of Authorized Person</label>
-            <input type="text" id="authorized-name" placeholder="Enter Name">
-
-            <label for="designation">Designation</label>
-            <input type="text" id="designation" placeholder="Enter Designation">
-
-            <label for="signature">Signature</label>
-            <input type="text" id="signature" placeholder="">
-
-            <label for="seal">Seal</label>
-            <input type="text" id="seal" placeholder="">
-        </div>
-
-        <div class="qr-container">
-            <img src="./vds-qr.png" alt="QR Code" class="qr-image">
-        </div>
-
-        <div class="notice">
-            <p><em>* Value exclusive of all taxes i.e. SD and VAT</em></p>
-        </div>
-    </section>
-
-    <div class="divider-line"></div>
-
-    <section class="payment-options">
-        <div class="button-container">
-            <button class="cash-btn" id="cash-btn">Cash Payment</button>
-
-            <!-- <a href="http://checkout-uat.dgepay.net/payment-methods?data=lSdqyTBTt1pkORt3ndiejF7LnYhhMI/26A5TXARy0lJ1bqTtjPtONpMsSBk1lGcBzlRAw1eb8m1X4WeCgKNdONZAIH3+kLAMNKu6zufw/qtKsjeWD332Rs1pIOu9kM9L6xBFzrrDi8DLluHHA7DseLnGqIujhRrdX9URoKKSoWJQnIm/8Jy5Za9yBYRliIrWcHKBxlgFTUHvXjULrE5IAmqNOo5U+5iPozSb8QnYrvOQ+PgfJxq1EDRn+XOdDGjI99i58MOyef7iw/vZVqbmK0gI+IcaqWlKrst/OdJsADswINIiXARMP92Cdnmtlbsd54fRR6hBnnY4CqX62SW6fXtstaqsTGUKxZOH/wsfOfLfjG8WSkFBwwrChorrGgpELXcOoC+QpG6ao7ASuJ0nnWB71iwntidieOCi4sJG8QI="><button class="online-btn">Online Payment</button></a> -->
-            <!-- <button class="online-btn" onclick="authentication()">Online Payment</button> -->
-
-            <button class="online-btn" id="online-btn">Online Payment</button>
-        </div>
-    </section>
-
-    <div id="notice-box" class="notice-box">
-        <div class="notice-content">
-            <img src="./alert-logo.png" height="100px">
-            <p id="notice-message"></p>
-            <button id="close-btn">Okay</button>
-        </div>
+    <div class="summary">
+        <p><strong>Payment Amount:</strong> <span id="payment-amount">0</span></p>
+        <p><strong>Payment Channel:</strong> <span id="payment-channel">Cash</span></p>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
     <script src="./script.js"></script>
 </body>
 
