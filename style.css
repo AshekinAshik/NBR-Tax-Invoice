@@ -66,20 +66,44 @@ body {
   width: 48%;
 }
 
-.user-info .column label {
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  font-weight: bold;
+  width: 30%;
+}
+
+.form-group span {
+  min-width: 10px;
+  text-align: center;
+  margin-right: 20px; /* Ensures spacing between colon and input */
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 55%;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+/* .user-info .column label {
   font-weight: bold;
   display: inline-block;
   width: 40%;
   margin: 5px 0;
-}
+} */
 
-.user-info .column input {
+/* .user-info .column input {
   width: 55%;
   padding: 5px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   display: inline-block;
-}
+} */
 
 .user-info .hardcoded p {
   margin: 5px 0;
@@ -284,5 +308,21 @@ body {
   .button-container button {
     width: 100%;
     margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .invoice-table th,
+  .invoice-table td {
+    padding: 6px;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .invoice-table th,
+  .invoice-table td {
+    padding: 5px;
+    font-size: 11px;
   }
 }

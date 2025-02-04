@@ -16,45 +16,88 @@
             <img src="./govt-bd.png" alt="Government Logo">
         </div>
         <div class="title">
-            <p style="font-size: 1.2rem; font-weight: 500; color: blue;">Government of Peoples' Republic of Bangladesh</p>
+            <p style="font-size: 1.2rem; font-weight: 500; color: blue;">Government of Peoples' Republic of Bangladesh
+            </p>
             <p style="font-size: 1.2rem; font-weight: 800; color: blue;">National Board of Revenue, Dhaka</p>
             <p style="font-size: 1.2rem; font-weight: 800; color: purple; margin-top: 10px;">Tax Invoice</p>
-            <p style="font-size: 1.2rem; font-weight: 500; color: blue;">[As per Para (Ga) and Para (Cha) of Sub-rule 1 of Rule 40]</p>
+            <p style="font-size: 0.9rem; font-weight: 500; color: blue;">[As per Para (Ga) and Para (Cha) of Sub-rule 1
+                of Rule 40]</p>
         </div>
         <div class="mushak">*Mushak - 6.3</div>
     </header>
 
     <section class="user-info">
         <div class="column">
-            <label for="purchaser-name">Name of Purchaser</label>
-            <input type="text" id="purchaser-name" placeholder="Enter Name">
+            <div class="form-group">
+                <label for="purchaser-name">Name of Purchaser</label>
+                <span>:</span>
+                <input type="text" id="purchaser-name" placeholder="Enter Name">
+            </div>
 
-            <label for="purchaser-bin">Purchaser's BIN</label>
-            <input type="text" id="purchaser-bin" placeholder="Enter BIN">
+            <div class="form-group">
+                <label for="purchaser-bin">Purchaser's BIN</label>
+                <span>:</span>
+                <input type="text" id="purchaser-bin" placeholder="Enter BIN">
+            </div>
 
-            <label for="purchaser-address">Address of Purchaser</label>
-            <input type="text" id="purchaser-address" placeholder="Enter Address">
+            <div class="form-group">
+                <label for="purchaser-address">Address of Purchaser</label>
+                <span>:</span>
+                <input type="text" id="purchaser-address" placeholder="Enter Address">
+            </div>
 
-            <label for="destination-address">Address of Destination</label>
-            <input type="text" id="destination-address" placeholder="Enter Address">
+            <div class="form-group">
+                <label for="destination-address">Address of Destination</label>
+                <span>:</span>
+                <input type="text" id="destination-address" placeholder="Enter Address">
+            </div>
 
-            <label for="vehicle-info">Nature and Number of Vehicle</label>
-            <input type="text" id="vehicle-info" placeholder="Enter Vehicle Info">
+            <div class="form-group">
+                <label for="vehicle-info">Nature and Number of Vehicle</label>
+                <span>:</span>
+                <input type="text" id="vehicle-info" placeholder="Enter Vehicle Info">
+            </div>
         </div>
 
         <div class="column hardcoded">
-            <p style="margin-bottom: 10px;"><strong>Name of Registered:</strong> Dipon Infrastructure Services Limited </p>
-            <p style="margin-bottom: 10px;"><strong>BIN of Registered:</strong> 000812312-0101</p>
+            <div class="form-group">
+                <label for="name-of-registered">Name of Registered</label>
+                <span style="">:</span>
+                <input type="text" id="name-of-registered" value="Dipon Infrastructure Services Limited" readonly>
+            </div>
 
-            <label for="challan-issuer-address">Address of Challan Issuer</label>
-            <input type="text" id="challan-issuer-address" placeholder="Enter Address">
+            <div class="form-group">
+                <label for="bin-of-registered">BIN of Registered</label>
+                <span>:</span>
+                <input type="text" id="bin-of-registered" value="000812312-0101" readonly>
+            </div>
 
-            <p style="margin-bottom: 10px;"><strong>Mushak Invoice No:</strong> <span id="invoice-no">1</span></p>
-            <p style="margin-bottom: 10px;"><strong>Date of Issue:</strong> <span id="date-issue"></span></p>
-            <label for="time-issue"><strong>Time of Issue:</strong></label>
-            <input type="text" id="time-issue" placeholder="Enter Time">
+            <div class="form-group">
+                <label for="challan-issuer-address">Address of Challan Issuer</label>
+                <span>:</span>
+                <input type="text" id="challan-issuer-address" placeholder="Enter Address">
+            </div>
+
+            <div class="form-group">
+                <label for="mushak-invoice-no">Mushak Invoice No</label>
+                <span>:</span>
+                <input type="text" id="mushak-invoice-no" value="1" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="date-of-issue">Date of Issue</label>
+                <span>:</span>
+                <input type="text" id="date-of-issue" value="" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="time-issue">Time of Issue</label>
+                <span>:</span>
+                <input type="date" id="time-issue" placeholder="Enter Time">
+            </div>
         </div>
     </section>
+
 
     <div class="invoice-table-container">
         <table class="invoice-table">
@@ -108,7 +151,8 @@
     <section class="payment-options">
         <div class="button-container">
             <button class="cash-btn">Cash Payment</button>
-            <a href="https://dgepay.net/vat.html" target="_blank" rel="noopener noreferrer"><button class="online-btn" >Online Payment</button></a>
+            <a href="https://dgepay.net/vat.html" target="_blank" rel="noopener noreferrer"><button
+                    class="online-btn">Online Payment</button></a>
         </div>
     </section>
 

@@ -1,4 +1,9 @@
-document.getElementById("date-issue").innerText = new Date().toLocaleDateString('en-GB');
+// Generate today's date in dd-mm-yyyy format
+document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString("en-GB").replace(/\//g, "-");
+    document.getElementById("date-of-issue").value = formattedDate;
+});
 
 let slNo = 1;  // SL No. starts from 1
 
