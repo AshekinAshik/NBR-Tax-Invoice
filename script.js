@@ -1,9 +1,20 @@
+// AUTOMATED DATE GENERATION PART
+
 // Generate today's date in dd-mm-yyyy format
 document.addEventListener("DOMContentLoaded", function () {
     const today = new Date();
     const formattedDate = today.toLocaleDateString("en-GB").replace(/\//g, "-");
     document.getElementById("date-of-issue").value = formattedDate;
 });
+
+// Generate current time in hh-mm format
+window.onload = () => {
+    const now = new Date();
+    document.getElementById("time-of-issue").value = now.toTimeString().slice(0, 5);
+};
+
+
+// INVOICE TABLE CALCULATION PART
 
 let slNo = 1;  // SL No. starts from 1
 
@@ -139,3 +150,34 @@ function removeRow(button) {
     // Recalculate totals after removing the row
     calculateTotal();
 }
+
+
+// NOTICE BOX PART
+
+// Get the buttons and notice box elements
+const cashButton = document.querySelector('.cash-btn');
+const onlineButton = document.querySelector('.online-btn');
+const noticeBox = document.getElementById('notice-box');
+const noticeMessage = document.getElementById('notice-message');
+const closeButton = document.getElementById('close-btn');
+
+// Function to show the notice box with the appropriate message
+function showNotice(message) {
+    noticeMessage.textContent = message; // Set the message inside the notice box
+    noticeBox.style.display = 'block'; // Display the notice box
+}
+
+// Close the notice box when the "okay" button is clicked
+closeButton.addEventListener('click', () => {
+    noticeBox.style.display = 'none'; // Hide the notice box
+});
+
+// Event listener for the cash payment button
+cashButton.addEventListener('click', () => {
+    showNotice('Cash Payment Received!');
+});
+
+// Event listener for the online payment button
+onlineButton.addEventListener('click', () => {
+    showNotice('Online Payment Received!');
+});

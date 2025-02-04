@@ -93,7 +93,7 @@
             <div class="form-group">
                 <label for="time-issue">Time of Issue</label>
                 <span>:</span>
-                <input type="date" id="time-issue" placeholder="Enter Time">
+                <input type="time" id="time-of-issue" value="" readonly>
             </div>
         </div>
     </section>
@@ -135,10 +135,14 @@
             <input type="text" id="designation" placeholder="Enter Designation">
 
             <label for="signature">Signature</label>
-            <input type="file" id="signature" accept=".jpg, .png" placeholder="Upload Signature (jpg/png)">
+            <input type="text" id="signature" placeholder="">
 
             <label for="seal">Seal</label>
-            <input type="file" id="seal" accept=".jpg, .png" placeholder="Upload Seal (jpg/png)">
+            <input type="text" id="seal" placeholder="">
+        </div>
+
+        <div class="qr-container">
+            <img src="./vds-qr.png" alt="QR Code" class="qr-image">
         </div>
 
         <div class="notice">
@@ -151,10 +155,17 @@
     <section class="payment-options">
         <div class="button-container">
             <button class="cash-btn">Cash Payment</button>
-            <a href="https://checkout-dev.dgepay.net/payment-methods?data=XMJSCqMiKFedSGgySL7xOKcOfpRPOiWgm%2FK962ed3FBc8qSj0c9hmAUm3E0BYRwR7bAjblkkRtoHEFot0OwS6fUgmxvU43xhSaHdkNH7B5egftRabuwaSm%2Ff4%20dr0GT%2FN8sqxLktkJ3J%2FU4hgG0UbA0rhy3p5IsGtkx4RbfhfAWidYl%2F6XfSdOfxJvg5KV6CGnPpnfCCvbxx6c97OzOhefLaTsdekD6y%208DFq2L5812dmGWV%20MEbnU0b7Nx8T5SlQrpEHC1FkB9izCHidYBUDPtHAKSrtJYUTO0CLtk695ojeaOmKL9dwQqrkNfTT30Y%20lL2Qo3OrI8RvIw02X06ysXJIYTcFB5kMLjIUnFTXgwzgo7rkxsiKAiR0kUOSlMwc2CXOOsn6QEQVlQl8CijYnpYBJ5rZORkdfqabg0TbzQ%3D" target="_blank" rel="noopener noreferrer"><button
-                    class="online-btn">Online Payment</button></a>
+            <button class="online-btn">Online Payment</button>
         </div>
     </section>
+
+    <div id="notice-box" class="notice-box">
+        <div class="notice-content">
+            <img src="./alert-logo.png" height="100px">
+            <p id="notice-message"></p>
+            <button id="close-btn">Okay</button>
+        </div>
+    </div>
 
     <script src="./script.js"></script>
 </body>
