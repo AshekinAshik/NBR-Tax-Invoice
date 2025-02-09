@@ -473,7 +473,8 @@ async function transaction() {
             const parseData = JSON.parse(data)
             const gateway_url = parseData.data.webview_url;
 
-            window.open(gateway_url, "_blank");
+            // window.open(gateway_url, "_blank");
+            window.location.replace(gateway_url);
         } else {
             throw new Error('Failed to initiate payment');
         }
