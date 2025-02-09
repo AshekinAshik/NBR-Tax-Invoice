@@ -182,9 +182,9 @@ cashButton.addEventListener('click', () => {
 });
 
 // Event listener for the online payment button
-onlineButton.addEventListener('click', () => {
-    showNotice('Online Payment Received!');
-});
+// onlineButton.addEventListener('click', () => {
+//     showNotice('Online Payment Received!');
+// });
 
 
 // EXTRACT DATA FOR CUSTOEMR REPORT
@@ -388,6 +388,7 @@ async function transaction() {
     const accessToken = sessionStorage.getItem('access_token');
 
     if (!accessToken) {
+        console.log("no accessToken");
         errorMessage.textContent = 'Authentication failed. Please log in again.';
         return;
     }
@@ -395,7 +396,7 @@ async function transaction() {
     // Prepare transaction data
     const params = {
         // amount: amount + .21,
-        amount: amount + .01,
+        amount: amount,
         customer_token: null,
         note: "Purchasing Test E Ticket",
         payee_information: {
@@ -470,11 +471,9 @@ async function transaction() {
 
             // Log the resulting JSON object
             const parseData = JSON.parse(data)
-            console.log(parseData);
             const gateway_url = parseData.data.webview_url;
 
-            window.location.href(gateway_url);
-
+            window.open(gateway_url, "_blank");
         } else {
             throw new Error('Failed to initiate payment');
         }
