@@ -383,7 +383,7 @@ function generateUDID() {
 }
 
 async function transaction() {
-    const amount = paymentAmount;
+    let amount = paymentAmount;
     const accessToken = sessionStorage.getItem('access_token');
 
     if (!accessToken) {
@@ -392,10 +392,11 @@ async function transaction() {
         return;
     }
 
+    amount = parseFloat(amount);
     // Prepare transaction data
     const params = {
         // amount: amount + .21,
-        amount: 10.21,
+        amount: amount,
         customer_token: null,
         note: "Purchasing Test E Ticket",
         payee_information: {
