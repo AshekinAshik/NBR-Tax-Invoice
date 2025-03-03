@@ -395,7 +395,7 @@ async function transaction() {
     // Prepare transaction data
     const params = {
         // amount: amount + .21,
-        amount: amount,
+        amount: 10.21,
         customer_token: null,
         note: "Purchasing Test E Ticket",
         payee_information: {
@@ -446,6 +446,7 @@ async function transaction() {
         // successMessage.textContent = response.text()
 
         const data = await response.text();
+        console.log(data);
         if (response.ok) {
             // Get the XML string from the response
             // const xmlString = await response.text();
